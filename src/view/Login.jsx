@@ -18,7 +18,8 @@ class Login extends Component {
       password: "123"
     },
     usuario: "",
-    password: ""
+    password: "",
+    error: false,
   };
 
   handleInputUser = event => {
@@ -26,8 +27,25 @@ class Login extends Component {
     this.setState({ usuario: usuario });
   };
 
+  handleInputPass = event => {
+    const password = event.target.value;
+    this.setState({ password });
+  };
+
   handleSubmit = () => {
-    console.log(this.state);
+    const { usuario } = this.state;
+    const { password } = this.state;
+
+    if (usuario === this.state.hardcodedUser.user) {
+      if (password === this.state.hardcodedUser.password) {
+        this.setState({ error: false })
+        console.log("autenticado!")
+      } else {
+        this.setState({ error: true })
+      }
+    } else {
+      this.setState({ error: true })
+    }
   };
 
   render() {
@@ -39,13 +57,16 @@ class Login extends Component {
             label="Usuario"
             onChange={evento => this.handleInputUser(evento)}
             value={this.state.usuario}
+            error={this.state.error}
           />
           <br />
           <TextField
             id="password"
             label="Contraseña"
             type="password"
+            onChange={evento => this.handleInputPass(evento)}
             value={this.state.password}
+            error={this.state.error}
           />
           <br />
           <br />
