@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Container, Button, TextField } from "@material-ui/core";
+import { withRouter } from 'react-router-dom';
 
 // import {
 //   MenuIcon,
@@ -39,7 +39,8 @@ class Login extends Component {
     if (usuario === this.state.hardcodedUser.user) {
       if (password === this.state.hardcodedUser.password) {
         this.setState({ error: false })
-        console.log("autenticado!")
+        const { history } = this.props;
+        if (history) history.push('/main');
       } else {
         this.setState({ error: true })
       }
@@ -84,4 +85,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
